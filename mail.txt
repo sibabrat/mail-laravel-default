@@ -1,0 +1,79 @@
+                           using SMTP
+1 - routes 
+
+Route::resource('/basicmail','MailController@basic_email');
+
+2 - controller (MailController)
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use Mail;
+
+class MailController extends Controller
+{
+    public  function basic_email()
+    {
+        $data = ['name' => 'Sibabrat swain'];    // for message after this we can take the value from db aslo 
+        Mail::send(['text' => 'mail'], $data, function($message){
+        $message->to('sibabratswain@globussoft.in','sibabrat swain')->subject('Send mail from laravel with basic email ');  //subject
+
+                     // to mail id                  //name
+
+           $message->from('sibabrat111@gmail.com','NOT SUCESSFUL');              // optional 
+                     // should same as env user id and name
+
+        });
+
+echo 'Basics Email was sent ';
+}
+}
+
+3 - view page 
+
+(body of the message )
+  Hallo,{{$name}}
+
+ i send a  mail
+
+
+4 -  env 
+
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=sibabratswain53@gmail.com //sender mail id 
+MAIL_PASSWORD=SIsw_2987                 // sender password 
+MAIL_ENCRYPTION=tls
+***************************important****************************
+(the mail id should be turn on for Access for less secure apps)
+ for that folow the link 
+[https://www.google.com/settings/security/lesssecureapps]
+
+5 - php artisan config:cache
+
+
+
+
+
+this is for taking input value and as per that it will send mail to certain  mail id and 
+the subject also will be the input task \
+
+
+
+  public  function samplemail(Request $request){
+        $user = new User;
+        $data['name'] = $user->name->$request->username;
+        $data['email'] = $user->name->$request->email;
+        $data['password'] = bcrypt($request->username);
+        $user->remember_token = str_random(100);
+        if($user ->save()){
+            Mail::send('mail.register',['data'=>$data], function($mail)use($data){
+               $mail->to($data['email'],$data['name'])->from('sibabrat@gmail.com')->subject('Welcome');
+            });
+        }
+    }
