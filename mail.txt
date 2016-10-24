@@ -1,4 +1,4 @@
-                           using SMTP
+                          Basic mail using smtp MAIL DRIVER
 1 - routes 
 
 Route::resource('/basicmail','MailController@basic_email');
@@ -20,11 +20,11 @@ class MailController extends Controller
     {
         $data = ['name' => 'Sibabrat swain'];    // for message after this we can take the value from db aslo 
         Mail::send(['text' => 'mail'], $data, function($message){
-        $message->to('sibabratswain@globussoft.in','sibabrat swain')->subject('Send mail from laravel with basic email ');  //subject
+        $message->to('abc@gmail.com','Sibabrat')->subject('Send mail from laravel with basic email ');  //subject
 
                      // to mail id                  //name
 
-           $message->from('sibabrat111@gmail.com','NOT SUCESSFUL');              // optional 
+           $message->from('xyz@gmail.com','NOT SUCESSFUL');              // optional 
                      // should same as env user id and name
 
         });
@@ -33,12 +33,12 @@ echo 'Basics Email was sent ';
 }
 }
 
-3 - view page 
+3 - view page (mail.blade.php)
 
 (body of the message )
   Hallo,{{$name}}
 
- i send a  mail
+Whats up !!!
 
 
 4 -  env 
@@ -46,12 +46,12 @@ echo 'Basics Email was sent ';
 MAIL_DRIVER=smtp
 MAIL_HOST=smtp.gmail.com
 MAIL_PORT=587
-MAIL_USERNAME=sibabratswain53@gmail.com //sender mail id 
-MAIL_PASSWORD=SIsw_2987                 // sender password 
+MAIL_USERNAME= xyz@gmail.com      //sender mail id 
+MAIL_PASSWORD=*****              // sender password 
 MAIL_ENCRYPTION=tls
 ***************************important****************************
 (the mail id should be turn on for Access for less secure apps)
- for that folow the link 
+ for that follow the link 
 [https://www.google.com/settings/security/lesssecureapps]
 
 5 - php artisan config:cache
@@ -60,8 +60,9 @@ MAIL_ENCRYPTION=tls
 
 
 
+optional:
 this is for taking input value and as per that it will send mail to certain  mail id and 
-the subject also will be the input task \
+the subject also will be the input task .
 
 
 
@@ -73,7 +74,7 @@ the subject also will be the input task \
         $user->remember_token = str_random(100);
         if($user ->save()){
             Mail::send('mail.register',['data'=>$data], function($mail)use($data){
-               $mail->to($data['email'],$data['name'])->from('sibabrat@gmail.com')->subject('Welcome');
+               $mail->to($data['email'],$data['name'])->from('xyz@gmail.com')->subject('Welcome');
             });
         }
     }
